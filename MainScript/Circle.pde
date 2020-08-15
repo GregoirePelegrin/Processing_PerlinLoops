@@ -7,7 +7,8 @@ class Circle {
   float xOffset;
   float yOffset;
   float zOffset;
-  FloatList perlin;
+  
+  float time;
 
   Circle(int v, float ir) {
     this.nbrVertices = v;
@@ -16,6 +17,8 @@ class Circle {
     this.xOffset = random(10000);
     this.yOffset = random(10000);
     this.zOffset = random(10000);
+    
+    this.time = 0;
 
     this.update();
   }
@@ -29,16 +32,18 @@ class Circle {
     float currX;
     float currY;
     float diffRadius;
+    float yCenter = 0.25*cos(this.time);
+    float zCenter = 0.25*cos(this.time - PI/2);
     for (int i=0; i<this.nbrVertices; i++) {
       currAngle = incrAngle * i;
       currX = this.initialRadius * cos(currAngle);
       currY = this.initialRadius * sin(currAngle);
-      diffRadius = map(noise(perlinCoeff*currX+xOffset, perlinCoeff*currY+yOffset, zOffset), 0, 1, -amplitude, amplitude);
+      diffRadius = map(noise(perlinCoeff*currX+xOffset, perlinCoeff*currY+yCenter+yOffset, zCenter+zOffset), 0, 1, -amplitude, amplitude);
       this.xVertices.append((this.initialRadius + diffRadius) * cos(currAngle));
       this.yVertices.append((this.initialRadius + diffRadius) * sin(currAngle));
     }
     
-    zOffset += perlinAnim;
+    time += perlinAnim;
   }
 
   void display() {

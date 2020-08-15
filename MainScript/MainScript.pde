@@ -9,7 +9,7 @@ void setup() {
   frameRate(30);
   
   amplitude = 100;
-  perlinAnim = 0.05;
+  perlinAnim = 0.1;
   perlinCoeff = 0.01;
   
   circle = new Circle(10000, 150);
