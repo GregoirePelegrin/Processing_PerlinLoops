@@ -43,12 +43,12 @@ class Circle {
       this.yVertices.append((this.initialRadius + diffRadius) * sin(currAngle));
     }
     
-    time += perlinAnim;
+    this.time += perlinAnim;
+    if(this.time >= TWO_PI) this.time = 0;
   }
 
   void display() {
     noFill();
-    stroke(255);
     beginShape();
     for (int i=0; i<this.nbrVertices; i++) {
       vertex(this.xVertices.get(i), this.yVertices.get(i));
